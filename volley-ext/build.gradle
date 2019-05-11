@@ -1,0 +1,66 @@
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'com.novoda.bintray-release'
+
+android {
+    compileSdkVersion vers.compileSdk
+
+    defaultConfig {
+        minSdkVersion vers.minSdk
+        targetSdkVersion vers.compileSdk
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            consumerProguardFile 'proguard-rules.pro'
+        }
+    }
+
+    testOptions {
+        unitTests {
+            includeAndroidResources = true
+        }
+    }
+
+    useLibrary 'org.apache.http.legacy'
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+    implementation "androidx.appcompat:appcompat:$vers.android.appcompat"
+    implementation "androidx.core:core-ktx:$vers.android.core_ktx"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$vers.kotlin_version"
+
+    testImplementation "androidx.test:core:$vers.test.android_test_core"
+    testImplementation "junit:junit:$vers.test.junit"
+    testImplementation "org.mockito:mockito-core:$vers.test.mockito_core"
+    testImplementation "org.awaitility:awaitility:$vers.test.awaitility"
+    testImplementation "org.robolectric:robolectric:$vers.test.robolectric"
+    testImplementation "com.squareup.okhttp3:mockwebserver:$vers.okhttp3"
+    androidTestImplementation "androidx.test:runner:$vers.android.test.runner"
+    androidTestImplementation "androidx.test.espresso:espresso-core:$vers.android.test.espresso_core"
+
+    implementation "com.android.volley:volley:$vers.volley"
+    implementation "com.google.code.gson:gson:$vers.gson"
+    implementation "com.squareup.okhttp3:okhttp:$vers.okhttp3"
+    implementation "io.reactivex.rxjava2:rxjava:$vers.rxjava2"
+}
+
+publish {
+    userOrg = 'uoooo'
+    groupId = 'com.uoooo'
+    repoName = 'oss'
+    artifactId = 'simple-volley-extensions'
+    publishVersion = '0.1.1'
+    desc = 'Simple Volley Extensions'
+    website = 'https://github.com/uOOOO/simple-volley-extensions'
+}
