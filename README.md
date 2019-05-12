@@ -1,4 +1,6 @@
-# Simple Volley Extensions [![Build Status](https://travis-ci.org/uOOOO/simple-volley-extensions.svg?branch=master)](https://travis-ci.org/uOOOO/simple-volley-extensions)
+# Simple Volley Extensions
+
+[![Build Status](https://travis-ci.org/uOOOO/simple-volley-extensions.svg?branch=master)](https://travis-ci.org/uOOOO/simple-volley-extensions) [ ![Download](https://api.bintray.com/packages/uoooo/oss/simple-volley-extensions/images/download.svg) ](https://bintray.com/uoooo/oss/simple-volley-extensions/_latestVersion)
 
 ## Download
 ```groovy
