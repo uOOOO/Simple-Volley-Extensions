@@ -1,4 +1,4 @@
-package com.uoooo.volley
+package com.uooo.volley.ext.sample
 
 import android.os.Bundle
 import android.os.Handler
@@ -10,7 +10,6 @@ import androidx.appcompat.app.AppCompatActivity
 import com.android.volley.RequestQueue
 import com.android.volley.Response
 import com.android.volley.VolleyLog
-import com.uooo.volley.ext.sample.R
 //import com.android.volley.toolbox.Volley
 import com.uoooo.volley.ext.Request
 import com.uoooo.volley.ext.parser.StringResponseParser
