@@ -1,7 +1,7 @@
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
-apply plugin: 'com.novoda.bintray-release'
+apply from: 'publish.gradle'
 
 android {
     compileSdkVersion vers.compileSdk
@@ -53,14 +53,4 @@ dependencies {
     implementation "com.google.code.gson:gson:$vers.gson"
     implementation "com.squareup.okhttp3:okhttp:$vers.okhttp3"
     implementation "io.reactivex.rxjava2:rxjava:$vers.rxjava2"
-}
-
-publish {
-    userOrg = 'uoooo'
-    groupId = 'com.uoooo'
-    repoName = 'oss'
-    artifactId = 'simple-volley-extensions'
-    publishVersion = '0.1.1'
-    desc = 'Simple Volley Extensions'
-    website = 'https://github.com/uOOOO/simple-volley-extensions'
 }

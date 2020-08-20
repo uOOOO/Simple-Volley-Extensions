@@ -1,0 +1,47 @@
+apply plugin: 'maven-publish'
+apply plugin: 'com.jfrog.bintray'
+
+version '0.1.1'
+group 'com.uoooo'
+
+task sourceJar(type: Jar) {
+    from android.sourceSets.main.java.srcDirs
+    classifier "sources"
+}
+
+afterEvaluate {
+    publishing {
+        publications {
+            aar(MavenPublication) {
+                from components.release
+
+                artifact sourceJar
+                groupId this.group
+                artifactId 'simple-volley-extensions'
+                version this.version
+            }
+        }
+    }
+}
+
+bintray {
+    user = project.hasProperty('bintrayUser') ? project.getProperty('bintrayUser') : System.getenv('BINTRAY_USER')
+    key = project.hasProperty('bintrayApiKey') ? project.getProperty('bintrayApiKey') : System.getenv('BINTRAY_API_KEY')
+    publications = ['aar']
+    override = true
+    pkg {
+        repo = 'oss'
+        name = 'simple-volley-extensions'
+        userOrg = 'uoooo'
+        description = "Simple Volley Extensions"
+        licenses = ['Apache-2.0']
+        vcsUrl = 'https://github.com/uOOOO/simple-volley-extensions.git'
+        publish = true
+//        dryRun = true
+        version {
+            name = this.version
+            released = new Date()
+            vcsTag = this.version
+        }
+    }
+}
