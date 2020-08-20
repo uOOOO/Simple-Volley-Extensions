@@ -19,8 +19,3 @@
 # If you keep the line number information, uncomment this to
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
-
-# To get error listener by reflection the field must be preserved.
--keepclassmembernames class com.android.volley.Request {
-    private * mErrorListener;
-}
