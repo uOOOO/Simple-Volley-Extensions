@@ -83,24 +83,6 @@ open class Request<T>(
     }
 
     // TODO : If rx return is stored in somewhere and not released, requestQueue will be leaked.
-    fun toObservable(requestQueue: RequestQueue): Observable<T> {
-        return Observable.defer {
-            return@defer Observable.fromFuture(executeBlocking(requestQueue))
-        }
-    }
-
-    fun toFlowable(requestQueue: RequestQueue): Flowable<T> {
-        return Flowable.defer {
-            return@defer Flowable.fromFuture(executeBlocking(requestQueue))
-        }
-    }
-
-    fun toMaybe(requestQueue: RequestQueue): Maybe<T> {
-        return Maybe.defer {
-            return@defer Maybe.fromFuture(executeBlocking(requestQueue))
-        }
-    }
-
     fun toSingle(requestQueue: RequestQueue): Single<T> {
         return Single.defer {
             return@defer Single.fromFuture(executeBlocking(requestQueue))
