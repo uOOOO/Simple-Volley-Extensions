@@ -5,7 +5,9 @@ import com.google.gson.Gson
 import com.uoooo.volley.ext.Request
 import com.uoooo.volley.ext.parser.ResponseParser
 import okhttp3.MediaType
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.RequestBody
+import okhttp3.RequestBody.Companion.toRequestBody
 
 class OkHttpRequestBodyRequest<T>(
     method: Int,
@@ -14,7 +16,7 @@ class OkHttpRequestBodyRequest<T>(
     listener: Response.Listener<T>?,
     errorListener: Response.ErrorListener?,
     responseParser: ResponseParser,
-    val requestBody: RequestBody?
+    val requestBody: RequestBody
 ) : Request<T>(method, url, headers, listener, errorListener, responseParser) {
 
     override fun getBody(): ByteArray {
@@ -23,7 +25,8 @@ class OkHttpRequestBodyRequest<T>(
 
     companion object {
         fun createJsonRequestBody(src: Any, gson: Gson = Gson()): RequestBody {
-            return RequestBody.create(MediaType.parse("application/json; charset=utf-8"), gson.toJson(src))
+            return gson.toJson(src)
+                .toRequestBody("application/json; charset=utf-8".toMediaTypeOrNull())
         }
     }
 }

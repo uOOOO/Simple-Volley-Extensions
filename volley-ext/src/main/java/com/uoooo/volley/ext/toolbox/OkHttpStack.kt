@@ -6,6 +6,8 @@ import com.android.volley.Request
 import com.android.volley.toolbox.BaseHttpStack
 import com.android.volley.toolbox.HttpResponse
 import okhttp3.*
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import okhttp3.RequestBody.Companion.toRequestBody
 import java.io.IOException
 import java.util.*
 import java.util.concurrent.TimeUnit
@@ -25,14 +27,16 @@ import java.util.concurrent.TimeUnit
 class OkHttpStack(private val interceptorList: List<Interceptor> = listOf()) : BaseHttpStack() {
 
     @Throws(AuthFailureError::class)
-    private fun setConnectionParametersForRequest(builder: okhttp3.Request.Builder, request: Request<*>) {
-        @Suppress("NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS")
+    private fun setConnectionParametersForRequest(
+        builder: okhttp3.Request.Builder,
+        request: Request<*>
+    ) {
         when (request.method) {
             Request.Method.DEPRECATED_GET_OR_POST -> {
                 // Ensure backwards compatibility.  Volley assumes a request with a null body is a GET.
                 val postBody = request.body
                 if (postBody != null) {
-                    builder.post(RequestBody.create(MediaType.parse(request.bodyContentType), postBody))
+                    builder.post(postBody.toRequestBody(request.bodyContentType.toMediaTypeOrNull()))
                 }
             }
             Request.Method.GET -> builder.get()
@@ -48,16 +52,19 @@ class OkHttpStack(private val interceptorList: List<Interceptor> = listOf()) : B
     }
 
     @Throws(AuthFailureError::class)
-    private fun createRequestBody(r: Request<*>): RequestBody? {
+    private fun createRequestBody(r: Request<*>): RequestBody {
         if (r is OkHttpRequestBodyRequest<*>) {
             return r.requestBody
         }
-        val body = r.body ?: return null
-        return RequestBody.create(MediaType.parse(r.bodyContentType), body)
+        val body = r.body ?: byteArrayOf()
+        return body.toRequestBody(r.bodyContentType.toMediaTypeOrNull())
     }
 
     @Throws(IOException::class, AuthFailureError::class)
-    override fun executeRequest(request: Request<*>, additionalHeaders: Map<String, String>): HttpResponse {
+    override fun executeRequest(
+        request: Request<*>,
+        additionalHeaders: Map<String, String>
+    ): HttpResponse {
         val clientBuilder = OkHttpClient.Builder()
         val timeoutMs = request.timeoutMs
 
@@ -91,18 +98,18 @@ class OkHttpStack(private val interceptorList: List<Interceptor> = listOf()) : B
         val okHttpCall = client.newCall(okHttpRequest)
         val okHttpResponse = okHttpCall.execute()
 
-        val code = okHttpResponse.code()
-        val body = okHttpResponse.body()
+        val code = okHttpResponse.code
+        val body = okHttpResponse.body
         val content = body?.byteStream()
         val contentLength = body?.contentLength()?.toInt() ?: 0
-        val responseHeaders = mapHeaders(okHttpResponse.headers())
+        val responseHeaders = mapHeaders(okHttpResponse.headers)
 
         return HttpResponse(code, responseHeaders, contentLength, content)
     }
 
     private fun mapHeaders(responseHeaders: Headers): List<Header> {
         val headers = ArrayList<Header>()
-        (0 until responseHeaders.size()).forEach {
+        (0 until responseHeaders.size).forEach {
             headers.add(Header(responseHeaders.name(it), responseHeaders.value(it)))
         }
         return headers

@@ -10,7 +10,6 @@ import androidx.appcompat.app.AppCompatActivity
 import com.android.volley.RequestQueue
 import com.android.volley.Response
 import com.android.volley.VolleyLog
-//import com.android.volley.toolbox.Volley
 import com.uoooo.volley.ext.Request
 import com.uoooo.volley.ext.parser.StringResponseParser
 import com.uoooo.volley.ext.toolbox.OkHttpStack
@@ -22,7 +21,6 @@ import io.reactivex.schedulers.Schedulers
 import okhttp3.FormBody
 import okhttp3.Interceptor
 import okhttp3.logging.HttpLoggingInterceptor
-import java.util.*
 
 class MainActivity : AppCompatActivity() {
 
@@ -34,7 +32,7 @@ class MainActivity : AppCompatActivity() {
 
         return@lazy Volley.newRequestQueue(
             application
-            , OkHttpStack(Arrays.asList<Interceptor>(httpLoggingInterceptor))
+            , OkHttpStack(listOf<Interceptor>(httpLoggingInterceptor))
         )
     }
 

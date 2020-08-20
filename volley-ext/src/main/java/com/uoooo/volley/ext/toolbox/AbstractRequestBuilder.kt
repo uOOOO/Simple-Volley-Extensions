@@ -6,6 +6,7 @@ import com.uoooo.volley.ext.Request
 import com.uoooo.volley.ext.parser.ResponseParser
 import com.uoooo.volley.ext.util.Assert
 import okhttp3.HttpUrl
+import okhttp3.HttpUrl.Companion.toHttpUrl
 import okhttp3.RequestBody
 
 abstract class AbstractRequestBuilder<T, B : AbstractRequestBuilder<T, B>> {
@@ -109,10 +110,10 @@ abstract class AbstractRequestBuilder<T, B : AbstractRequestBuilder<T, B>> {
 
     protected fun buildUrl(baseUrl: String, relativeUrl: String?, encoded: Boolean = false): HttpUrl {
         val builder = if (relativeUrl.isNullOrEmpty()) {
-            HttpUrl.get(baseUrl).newBuilder()
+            baseUrl.toHttpUrl().newBuilder()
         } else {
             @Suppress("NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS")
-            HttpUrl.get(baseUrl).newBuilder(relativeUrl)
+            baseUrl.toHttpUrl().newBuilder(relativeUrl)
                 ?: throw IllegalArgumentException("malformed url. base : $baseUrl, relative url : $relativeUrl")
         }
         return builder.apply {

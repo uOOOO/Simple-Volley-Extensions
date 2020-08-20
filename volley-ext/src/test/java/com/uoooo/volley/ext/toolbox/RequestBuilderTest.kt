@@ -3,7 +3,9 @@ package com.uoooo.volley.ext.toolbox
 import com.uoooo.volley.ext.Request
 import com.uoooo.volley.ext.parser.StringResponseParser
 import okhttp3.MediaType
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.RequestBody
+import okhttp3.RequestBody.Companion.toRequestBody
 import org.junit.Assert.assertTrue
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -70,7 +72,7 @@ class RequestBuilderTest {
     @Test
     fun setRequestBodyReturnOkHttpRequestBuilder() {
         val requestBuilder = RequestBuilder<String>()
-            .setRequestBody(RequestBody.create(MediaType.parse("text/plain"), ""))
+            .setRequestBody("".toRequestBody("text/plain".toMediaTypeOrNull()))
         @Suppress("USELESS_IS_CHECK")
         assertTrue(requestBuilder is OkHttpRequestBodyRequestBuilder)
     }
@@ -81,7 +83,7 @@ class RequestBuilderTest {
             .setMethod(Request.Method.GET)
             .setBaseUrl("http://localhost")
             .setResponseParser(StringResponseParser())
-            .setRequestBody(RequestBody.create(MediaType.parse("text/plain"), ""))
+            .setRequestBody("".toRequestBody("text/plain".toMediaTypeOrNull()))
             .build()
         @Suppress("USELESS_IS_CHECK")
         assertTrue(request is OkHttpRequestBodyRequest)
