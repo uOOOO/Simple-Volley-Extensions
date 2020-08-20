@@ -61,7 +61,7 @@ class MainActivity : AppCompatActivity() {
             // #2
             requestFuture(builder)
             // #3
-            requestObservable(builder)
+            requestRx(builder)
         }, 500)
     }
 
@@ -108,14 +108,14 @@ class MainActivity : AppCompatActivity() {
         runOnUiThread { getScrollableTextView(R.id.textView2).text = response ?: "null" }
     }
 
-    private fun requestObservable(builder: RequestBuilder<String>) {
+    private fun requestRx(builder: RequestBuilder<String>) {
         val request = builder
             .addParam("execute type", "rx request")
             .setTag("#3")
             .build()
 
         request
-            .toObservable(requestQueue)
+            .toSingle(requestQueue)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(
