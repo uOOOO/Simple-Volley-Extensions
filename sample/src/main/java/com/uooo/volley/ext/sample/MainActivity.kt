@@ -7,6 +7,7 @@ import android.widget.TextView
 import androidx.annotation.IdRes
 import androidx.annotation.Nullable
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.lifecycleScope
 import com.android.volley.RequestQueue
 import com.android.volley.Response
 import com.android.volley.VolleyLog
@@ -18,9 +19,14 @@ import com.uoooo.volley.ext.toolbox.Volley
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.launch
 import okhttp3.FormBody
 import okhttp3.Interceptor
 import okhttp3.logging.HttpLoggingInterceptor
+import java.lang.Exception
 
 class MainActivity : AppCompatActivity() {
 
@@ -62,6 +68,8 @@ class MainActivity : AppCompatActivity() {
             requestFuture(builder)
             // #3
             requestRx(builder)
+            // #4
+            requestCoroutine(builder)
         }, 500)
     }
 
@@ -85,8 +93,7 @@ class MainActivity : AppCompatActivity() {
             .setTag("#1")
             .build()
 
-        request
-            .execute(requestQueue)
+        request.execute(requestQueue)
     }
 
     private fun requestFuture(builder: RequestBuilder<String>) {
@@ -99,13 +106,12 @@ class MainActivity : AppCompatActivity() {
             .setTag("#2")
             .build()
 
-        var response: String? = null
         try {
-            response = request.executeBlocking(requestQueue).get()
+            val response = request.executeBlocking(requestQueue).get()
+            runOnUiThread { getScrollableTextView(R.id.textView2).text = response ?: "null" }
         } catch (e: Throwable) {
             e.printStackTrace()
         }
-        runOnUiThread { getScrollableTextView(R.id.textView2).text = response ?: "null" }
     }
 
     private fun requestRx(builder: RequestBuilder<String>) {
@@ -122,6 +128,24 @@ class MainActivity : AppCompatActivity() {
                 { t -> getScrollableTextView(R.id.textView3).text = t ?: "null" },
                 { throwable -> throwable.printStackTrace() })
             .apply { disposable.add(this) }
+    }
+
+    private fun requestCoroutine(builder: RequestBuilder<String>) {
+        val request = builder
+            .addParam("execute type", "coroutine request")
+            .setTag("#4")
+            .build()
+
+        lifecycleScope.launch(Dispatchers.IO) {
+            try {
+                val response = request.toCoroutine(requestQueue)
+                launch(Dispatchers.Main) {
+                    getScrollableTextView(R.id.textView4).text = response ?: "null"
+                }
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
+        }
     }
 
     @Nullable

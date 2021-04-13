@@ -116,6 +116,18 @@ RequestBuilder<String>()
             .apply { disposable.add(this) }
 ```
 
+### - Coroutine
+```kotlin
+RequestBuilder<String>()
+            .setMethod(Request.Method.GET)
+            .setBaseUrl("https://httpbin.org")
+            .setRelativeUrl("/post")
+            .setResponseParser(StringResponseParser())
+            .setTag("TAG")
+            .build()
+            .toCoroutine(requestQueue)
+```
+
 ## RequestFuture.get() on main thread
 
 RequestFuture.doGet() calls wait(0) on current thread. 

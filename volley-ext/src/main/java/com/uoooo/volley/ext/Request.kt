@@ -6,7 +6,10 @@ import com.uoooo.volley.ext.parser.ResponseParser
 import com.uoooo.volley.ext.toolbox.Volley
 import com.uoooo.volley.ext.util.Reflection
 import io.reactivex.*
+import kotlinx.coroutines.suspendCancellableCoroutine
 import java.io.UnsupportedEncodingException
+import kotlin.coroutines.resume
+import kotlin.coroutines.resumeWithException
 
 open class Request<T>(
     method: Int,
@@ -82,16 +85,43 @@ open class Request<T>(
         return requestFuture
     }
 
-    // TODO : If rx return is stored in somewhere and not released, requestQueue will be leaked.
+    /**
+     * Although listener [Response.Listener] or error listener [Response.ErrorListener] is set already,
+     * it's going to be ignored.
+     * 
+     * If [Single] is not disposed, requestQueue will be leaked.
+     */
     fun toSingle(requestQueue: RequestQueue): Single<T> {
         return Single.defer {
             return@defer Single.fromFuture(executeBlocking(requestQueue))
         }
     }
 
+    /**
+     * Although listener [Response.Listener] or error listener [Response.ErrorListener] is set already,
+     * it's going to be ignored.
+     *
+     * If [Completable] is not disposed, requestQueue will be leaked.
+     */
     fun toCompletable(requestQueue: RequestQueue): Completable {
         return Completable.defer {
             return@defer Completable.fromFuture(executeBlocking(requestQueue))
+        }
+    }
+
+    /**
+     * Although listener [Response.Listener] or error listener [Response.ErrorListener] is set already,
+     * it's going to be ignored.
+     */
+    suspend fun toCoroutine(requestQueue: RequestQueue): T? {
+        return suspendCancellableCoroutine { continuation ->
+            continuation.invokeOnCancellation { cancel() }
+
+            try {
+                continuation.resume(executeBlocking(requestQueue).get())
+            } catch (e: Exception) {
+                continuation.resumeWithException(e)
+            }
         }
     }
 }

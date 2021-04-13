@@ -28,8 +28,10 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
     implementation "androidx.appcompat:appcompat:$vers.android.appcompat"
+    implementation "androidx.activity:activity-ktx:$vers.android.activity"
     implementation "androidx.constraintlayout:constraintlayout:$vers.android.constraint"
     implementation "androidx.core:core-ktx:$vers.android.core_ktx"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$vers.coroutines"
 
     testImplementation "junit:junit:$vers.test.junit"
     androidTestImplementation "androidx.test:runner:$vers.android.test.runner"
