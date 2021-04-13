@@ -1,6 +1,5 @@
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
-apply plugin: 'kotlin-android-extensions'
 apply from: 'publish.gradle'
 
 android {
@@ -8,7 +7,7 @@ android {
 
     defaultConfig {
         minSdkVersion vers.minSdk
-        targetSdkVersion vers.compileSdk
+        targetSdkVersion vers.targetSdk
         versionCode 1
         versionName "1.0"
 
@@ -38,7 +37,6 @@ dependencies {
 
     implementation "androidx.appcompat:appcompat:$vers.android.appcompat"
     implementation "androidx.core:core-ktx:$vers.android.core_ktx"
-    implementation "org.jetbrains.kotlin:kotlin-stdlib:$vers.kotlin_version"
 
     testImplementation "androidx.test:core:$vers.test.android_test_core"
     testImplementation "junit:junit:$vers.test.junit"

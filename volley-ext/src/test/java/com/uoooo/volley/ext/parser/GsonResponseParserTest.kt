@@ -17,7 +17,7 @@ class GsonResponseParserTest {
         val gsonResponseParser = GsonResponseParser(Response::class.java)
         val response = gsonResponseParser.parseNetworkResponse<Response>(networkResponse)
 
-        assertEquals(response.result.language, value)
+        assertEquals(response.result?.language, value)
     }
 
     @Test

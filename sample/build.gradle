@@ -1,15 +1,12 @@
 apply plugin: 'com.android.application'
-
 apply plugin: 'kotlin-android'
 
-apply plugin: 'kotlin-android-extensions'
-
 android {
-    compileSdkVersion 28
+    compileSdkVersion vers.compileSdk
     defaultConfig {
         applicationId "com.uooo.volley.ext.sample"
-        minSdkVersion 16
-        targetSdkVersion 28
+        minSdkVersion vers.minSdk
+        targetSdkVersion vers.targetSdk
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
@@ -33,7 +30,6 @@ dependencies {
     implementation "androidx.appcompat:appcompat:$vers.android.appcompat"
     implementation "androidx.constraintlayout:constraintlayout:$vers.android.constraint"
     implementation "androidx.core:core-ktx:$vers.android.core_ktx"
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$vers.kotlin_version"
 
     testImplementation "junit:junit:$vers.test.junit"
     androidTestImplementation "androidx.test:runner:$vers.android.test.runner"
