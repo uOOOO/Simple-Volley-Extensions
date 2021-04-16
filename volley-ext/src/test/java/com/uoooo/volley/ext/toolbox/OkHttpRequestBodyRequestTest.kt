@@ -22,11 +22,9 @@ import org.mockito.ArgumentCaptor
 import org.mockito.ArgumentMatchers.any
 import org.mockito.Mockito.*
 import org.robolectric.RobolectricTestRunner
-import org.robolectric.annotation.Config
 import java.util.concurrent.Executors
 
 @RunWith(RobolectricTestRunner::class)
-@Config(manifest = Config.NONE)
 class OkHttpRequestBodyRequestTest {
     private lateinit var server: MockWebServer
     private lateinit var httpUrl: HttpUrl
