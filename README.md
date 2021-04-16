@@ -1,11 +1,11 @@
 # Simple Volley Extensions
 
-[![Build Status](https://travis-ci.org/uOOOO/simple-volley-extensions.svg?branch=master)](https://travis-ci.org/uOOOO/simple-volley-extensions) [ ![Download](https://api.bintray.com/packages/uoooo/oss/simple-volley-extensions/images/download.svg) ](https://bintray.com/uoooo/oss/simple-volley-extensions/_latestVersion)
+[![Push Build](https://github.com/uOOOO/simple-volley-extensions/actions/workflows/push-build.yml/badge.svg?event=push)](https://github.com/uOOOO/simple-volley-extensions/actions/workflows/push-build.yml) [ ![Download](https://api.bintray.com/packages/uoooo/oss/simple-volley-extensions/images/download.svg) ](https://bintray.com/uoooo/oss/simple-volley-extensions/_latestVersion)
 
 ## Download
 ```groovy
 dependencies {
-    implementation 'com.uoooo:simple-volley-extensions:0.1.1'
+    implementation 'com.uoooo:simple-volley-extensions:0.1.2'
 }
 ```
 
