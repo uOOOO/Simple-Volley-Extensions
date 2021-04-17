@@ -1,9 +1,6 @@
 package com.uoooo.volley.ext.toolbox
 
 import android.content.Context
-import android.content.pm.PackageManager
-import android.net.http.AndroidHttpClient
-import android.os.Build
 import android.os.Handler
 import android.os.HandlerThread
 import com.android.volley.ExecutorDelivery

@@ -1,7 +1,6 @@
 package com.uooo.volley.ext.sample
 
 import android.os.Bundle
-import android.os.Handler
 import android.text.method.ScrollingMovementMethod
 import android.widget.TextView
 import androidx.annotation.IdRes
@@ -9,7 +8,6 @@ import androidx.annotation.Nullable
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import com.android.volley.RequestQueue
-import com.android.volley.Response
 import com.android.volley.VolleyLog
 import com.uoooo.volley.ext.*
 import com.uoooo.volley.ext.parser.StringResponseParser
@@ -58,17 +56,14 @@ class MainActivity : AppCompatActivity() {
 
     private fun runTestSet() {
         val builder = getBuilderForTest()
-
-        Handler().postDelayed({
-            // #1
-            request(builder)
-            // #2
-            requestFuture(builder)
-            // #3
-            requestRx(builder)
-            // #4
-            requestCoroutine(builder)
-        }, 500)
+        // #1
+        request(builder)
+        // #2
+        requestFuture(builder)
+        // #3
+        requestRx(builder)
+        // #4
+        requestCoroutine(builder)
     }
 
     private fun getBuilderForTest(): RequestBuilder<String> {
@@ -81,12 +76,12 @@ class MainActivity : AppCompatActivity() {
 
     private fun request(builder: RequestBuilder<String>) {
         val request = builder
-            .setListener(Response.Listener {
+            .setListener {
                 runOnUiThread { getScrollableTextView(R.id.textView1).text = it ?: "null" }
-            })
-            .setErrorListener(Response.ErrorListener {
+            }
+            .setErrorListener {
                 it.printStackTrace()
-            })
+            }
             .addParam("execute type", "volley request")
             .setTag("#1")
             .build()
