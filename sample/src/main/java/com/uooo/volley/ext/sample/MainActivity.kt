@@ -11,7 +11,7 @@ import androidx.lifecycle.lifecycleScope
 import com.android.volley.RequestQueue
 import com.android.volley.Response
 import com.android.volley.VolleyLog
-import com.uoooo.volley.ext.Request
+import com.uoooo.volley.ext.*
 import com.uoooo.volley.ext.parser.StringResponseParser
 import com.uoooo.volley.ext.toolbox.OkHttpStack
 import com.uoooo.volley.ext.toolbox.RequestBuilder
@@ -19,9 +19,7 @@ import com.uoooo.volley.ext.toolbox.Volley
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
-import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.launch
 import okhttp3.FormBody
 import okhttp3.Interceptor
@@ -121,7 +119,7 @@ class MainActivity : AppCompatActivity() {
             .build()
 
         request
-            .toSingle(requestQueue)
+            .single(requestQueue)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(
@@ -138,7 +136,7 @@ class MainActivity : AppCompatActivity() {
 
         lifecycleScope.launch(Dispatchers.IO) {
             try {
-                val response = request.toCoroutine(requestQueue)
+                val response = request.coroutine(requestQueue)
                 launch(Dispatchers.Main) {
                     getScrollableTextView(R.id.textView4).text = response ?: "null"
                 }

@@ -23,6 +23,15 @@ android {
         }
     }
 
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    kotlinOptions {
+        jvmTarget = "1.8"
+    }
+
     testOptions {
         unitTests {
             includeAndroidResources = true
@@ -40,9 +49,9 @@ dependencies {
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$vers.coroutines"
 
     testImplementation "androidx.test:core:$vers.test.android_test_core"
+    testImplementation "io.mockk:mockk:$vers.test.mockk"
     testImplementation "junit:junit:$vers.test.junit"
     testImplementation "org.mockito:mockito-core:$vers.test.mockito_core"
-    testImplementation "org.awaitility:awaitility:$vers.test.awaitility"
     testImplementation "org.robolectric:robolectric:$vers.test.robolectric"
     testImplementation "com.squareup.okhttp3:mockwebserver:$vers.okhttp3"
     androidTestImplementation "androidx.test:runner:$vers.android.test.runner"

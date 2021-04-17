@@ -109,7 +109,7 @@ RequestBuilder<String>()
             .setResponseParser(StringResponseParser())
             .setTag("TAG")
             .build()
-            .toSingle(requestQueue)
+            .single(requestQueue)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe()
@@ -125,7 +125,7 @@ RequestBuilder<String>()
             .setResponseParser(StringResponseParser())
             .setTag("TAG")
             .build()
-            .toCoroutine(requestQueue)
+            .coroutine(requestQueue)
 ```
 
 ## RequestFuture.get() on main thread
