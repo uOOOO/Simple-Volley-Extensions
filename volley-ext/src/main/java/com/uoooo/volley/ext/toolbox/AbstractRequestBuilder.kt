@@ -4,7 +4,6 @@ import com.android.volley.Response
 import com.android.volley.RetryPolicy
 import com.uoooo.volley.ext.Request
 import com.uoooo.volley.ext.parser.ResponseParser
-import com.uoooo.volley.ext.util.Assert
 import okhttp3.HttpUrl
 import okhttp3.HttpUrl.Companion.toHttpUrl
 import okhttp3.RequestBody
@@ -108,7 +107,11 @@ abstract class AbstractRequestBuilder<T, B : AbstractRequestBuilder<T, B>> {
             .addParam(key, value)
     }
 
-    protected fun buildUrl(baseUrl: String, relativeUrl: String?, encoded: Boolean = false): HttpUrl {
+    protected fun buildUrl(
+        baseUrl: String,
+        relativeUrl: String?,
+        encoded: Boolean = false
+    ): HttpUrl {
         val builder = if (relativeUrl.isNullOrEmpty()) {
             baseUrl.toHttpUrl().newBuilder()
         } else {
@@ -128,10 +131,6 @@ abstract class AbstractRequestBuilder<T, B : AbstractRequestBuilder<T, B>> {
     }
 
     open fun build(): Request<T> {
-        Assert.notNull(method)
-        Assert.notNull(baseUrl)
-        Assert.notNull(responseParser)
-
         return Request(
             method!!.raw,
             buildUrl(baseUrl!!, relativeUrl, false).toString(),

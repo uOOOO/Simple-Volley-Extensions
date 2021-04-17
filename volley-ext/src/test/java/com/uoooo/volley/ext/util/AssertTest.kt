@@ -11,9 +11,4 @@ class AssertTest {
     fun checkMainThreadThrowExceptionOnMainThread() {
         Assert.checkMainThread()
     }
-
-    @Test(expected = NullPointerException::class)
-    fun notNullThrowExceptionWithNull() {
-        Assert.notNull(null)
-    }
 }

@@ -1,27 +1,18 @@
 package com.uoooo.volley.ext
 
 import com.android.volley.*
-import com.android.volley.toolbox.RequestFuture
+import com.android.volley.toolbox.HttpHeaderParser
 import com.uoooo.volley.ext.parser.ResponseParser
-import com.uoooo.volley.ext.toolbox.Volley
-import com.uoooo.volley.ext.util.Reflection
-import io.reactivex.*
-import kotlinx.coroutines.suspendCancellableCoroutine
 import java.io.UnsupportedEncodingException
-import kotlin.coroutines.resume
-import kotlin.coroutines.resumeWithException
 
 open class Request<T>(
     method: Int,
     url: String,
-    headers: Map<String, String>?,
-    private var listener: Response.Listener<T>?,
-    errorListener: Response.ErrorListener?,
-    private val parser: ResponseParser
+    private val headers: Map<String, String>? = mapOf(),
+    private var listener: Response.Listener<T>? = null,
+    errorListener: Response.ErrorListener? = null,
+    private val parser: ResponseParser? = null
 ) : com.android.volley.Request<T>(method, url, errorListener) {
-
-    private val headers: Map<String, String> = headers?.toMap() ?: emptyMap()
-
     enum class Method(val raw: Int) {
         DEPRECATED_GET_OR_POST(com.android.volley.Request.Method.DEPRECATED_GET_OR_POST),
         GET(com.android.volley.Request.Method.GET),
@@ -35,12 +26,13 @@ open class Request<T>(
     }
 
     override fun getHeaders(): Map<String, String> {
-        return headers
+        return headers ?: mapOf()
     }
 
     override fun parseNetworkResponse(response: NetworkResponse?): Response<T> {
         return try {
-            parser.parseNetworkResponse(response!!)
+            parser?.parseNetworkResponse(response!!)
+                ?: Response.success(null, HttpHeaderParser.parseCacheHeaders(response))
         } catch (e: UnsupportedEncodingException) {
             Response.error(ParseError(e))
         } catch (e: Exception) {

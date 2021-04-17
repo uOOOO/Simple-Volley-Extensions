@@ -1,11 +1,10 @@
 package com.uoooo.volley.ext.toolbox
 
-import com.uoooo.volley.ext.util.Assert
 import okhttp3.FormBody
 import okhttp3.RequestBody
 
 class OkHttpRequestBodyRequestBuilder<T> : AbstractRequestBuilder<T, OkHttpRequestBodyRequestBuilder<T>> {
-
+    @Suppress("unused")
     constructor() : super()
 
     constructor(requestBuilder: AbstractRequestBuilder<T, OkHttpRequestBodyRequestBuilder<T>>) :
@@ -19,10 +18,6 @@ class OkHttpRequestBodyRequestBuilder<T> : AbstractRequestBuilder<T, OkHttpReque
     }
 
     override fun build(): OkHttpRequestBodyRequest<T> {
-        Assert.notNull(method)
-        Assert.notNull(baseUrl)
-        Assert.notNull(responseParser)
-
         return OkHttpRequestBodyRequest(
             method!!.raw,
             buildUrl(baseUrl!!, relativeUrl, false).toString(),

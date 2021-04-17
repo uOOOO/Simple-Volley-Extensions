@@ -4,7 +4,6 @@ import com.android.volley.Response
 import com.google.gson.Gson
 import com.uoooo.volley.ext.Request
 import com.uoooo.volley.ext.parser.ResponseParser
-import okhttp3.MediaType
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.RequestBody
 import okhttp3.RequestBody.Companion.toRequestBody
@@ -12,10 +11,10 @@ import okhttp3.RequestBody.Companion.toRequestBody
 class OkHttpRequestBodyRequest<T>(
     method: Int,
     url: String,
-    headers: Map<String, String>?,
-    listener: Response.Listener<T>?,
-    errorListener: Response.ErrorListener?,
-    responseParser: ResponseParser,
+    headers: Map<String, String>? = null,
+    listener: Response.Listener<T>? = null,
+    errorListener: Response.ErrorListener? = null,
+    responseParser: ResponseParser? = null,
     val requestBody: RequestBody
 ) : Request<T>(method, url, headers, listener, errorListener, responseParser) {
 

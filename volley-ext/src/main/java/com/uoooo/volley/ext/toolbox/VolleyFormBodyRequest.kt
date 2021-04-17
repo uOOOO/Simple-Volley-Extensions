@@ -7,11 +7,11 @@ import com.uoooo.volley.ext.parser.ResponseParser
 class VolleyFormBodyRequest<T>(
     method: Int,
     url: String,
-    headers: Map<String, String>?,
-    listener: Response.Listener<T>?,
-    errorListener: Response.ErrorListener?,
-    parser: ResponseParser,
-    private val params: Map<String, String>?
+    headers: Map<String, String>? = null,
+    listener: Response.Listener<T>? = null,
+    errorListener: Response.ErrorListener? = null,
+    parser: ResponseParser? = null,
+    private val params: Map<String, String>? = null
 ) : Request<T>(method, url, headers, listener, errorListener, parser) {
 
     override fun getParams(): Map<String, String> {
