@@ -8,8 +8,6 @@ android {
     defaultConfig {
         minSdkVersion vers.minSdk
         targetSdkVersion vers.targetSdk
-        versionCode 1
-        versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles 'consumer-proguard-rules.pro'
