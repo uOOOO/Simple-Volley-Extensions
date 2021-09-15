@@ -1,11 +1,11 @@
 # Simple Volley Extensions
 
-[![Push Build](https://github.com/uOOOO/simple-volley-extensions/actions/workflows/push-build.yml/badge.svg?event=push)](https://github.com/uOOOO/simple-volley-extensions/actions/workflows/push-build.yml) [ ![Download](https://api.bintray.com/packages/uoooo/oss/simple-volley-extensions/images/download.svg) ](https://bintray.com/uoooo/oss/simple-volley-extensions/_latestVersion)
+[![Push Build](https://github.com/uOOOO/simple-volley-extensions/actions/workflows/push-build.yml/badge.svg?event=push)](https://github.com/uOOOO/simple-volley-extensions/actions/workflows/push-build.yml) [![Maven Central](https://maven-badges.herokuapp.com/maven-central/io.github.uoooo/simple-volley-extensions/badge.svg)](https://maven-badges.herokuapp.com/maven-central/io.github.uoooo/simple-volley-extensions)
 
 ## Download
 ```groovy
 dependencies {
-    implementation 'com.uoooo:simple-volley-extensions:0.1.2'
+    implementation 'io.github.uoooo:simple-volley-extensions:0.1.4'
 }
 ```
 

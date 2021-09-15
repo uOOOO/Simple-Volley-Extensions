@@ -58,7 +58,7 @@ task clean(type: Delete) {
 }
 
 group = "io.github.uoooo"
-version = '0.1.2'
+version = '0.1.4'
 
 apply plugin: 'io.github.gradle-nexus.publish-plugin'
 apply from: "${rootDir}/gradle/publish-root.gradle"
