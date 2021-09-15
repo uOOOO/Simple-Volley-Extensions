@@ -1,6 +1,5 @@
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
-apply from: 'publish.gradle'
 
 android {
     compileSdkVersion vers.compileSdk
@@ -60,3 +59,11 @@ dependencies {
     implementation "com.squareup.okhttp3:okhttp:$vers.okhttp3"
     implementation "io.reactivex.rxjava3:rxjava:$vers.rxjava3"
 }
+
+ext {
+    PUBLISH_GROUP_ID = rootProject.group
+    PUBLISH_VERSION = rootProject.version
+    PUBLISH_ARTIFACT_ID = 'simple-volley-extensions'
+}
+
+apply from: "${rootProject.projectDir}/gradle/publish-module.gradle"
