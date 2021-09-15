@@ -38,7 +38,7 @@ fun <T> Request<T>.executeBlocking(requestQueue: RequestQueue): RequestFuture<T>
  * Listener [Response.Listener] or error listener [Response.ErrorListener] set already
  * in this request is going to be ignored.
  */
-fun <T> Request<T>.single(requestQueue: RequestQueue): Single<T> {
+fun <T : Any> Request<T>.single(requestQueue: RequestQueue): Single<T> {
     return Single.defer { Single.fromFuture(executeBlocking(requestQueue)) }
 }
 
