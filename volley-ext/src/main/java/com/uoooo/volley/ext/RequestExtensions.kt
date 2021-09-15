@@ -5,8 +5,8 @@ import com.android.volley.RequestQueue
 import com.android.volley.Response
 import com.android.volley.toolbox.RequestFuture
 import com.uoooo.volley.ext.util.Reflection
-import io.reactivex.Completable
-import io.reactivex.Single
+import io.reactivex.rxjava3.core.Completable
+import io.reactivex.rxjava3.core.Single
 import kotlinx.coroutines.suspendCancellableCoroutine
 import java.lang.Exception
 import kotlin.coroutines.resume
